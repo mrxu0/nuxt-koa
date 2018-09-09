@@ -1,5 +1,7 @@
-import Services from './services'
 import axios from 'axios'
+
+axios.defaults.baseURL = 'http://127.0.0.1:8088';
+
 export default {
   async getMenu () {
     let res = await axios.get('/menu/list')
@@ -48,12 +50,11 @@ export default {
   },
 
   // 添加文章
-  async addOrEditArticle ( { commit }, data ) {
+  async addOrEditArticle ( { commit }, params ) {
     try {
-      console.log(data)
-      let res = await axios.post('/article/addOrEdit', data)
-      let { data } = res
-      return data
+       let res = await axios.post('/article/addOrEdit', params)
+       let { data } = res
+       return data
       
     } catch (e) {
       throw new Error(e)
@@ -61,9 +62,10 @@ export default {
   },
 
   // 获得文章
-  async getArticle ( { commit }, { id }) {
+  async getArticle ( { commit }, { _id }) {
+    console.log('getArticle', _id)
     try {
-      let res = await axios.get('/article/get/' + id)
+      let res = await axios.get('/article/get/' + _id)
       let { data } = res
       return data
     } catch (e) {
@@ -72,10 +74,10 @@ export default {
   },
 
   // 编辑文章
-  async editArticle ( { commit }, { title, content, id }) {
+  async editArticle ( { commit }, { title, content, _id }) {
     try {
       let res = await axios.post('/article/addOrEdit', {
-        id,
+        _id,
         title,
         content
       })
@@ -86,15 +88,16 @@ export default {
       throw new Error(e)
     }
   },
-
+ 
   // 文章列表
   async articleList () {
     try {
       let res = await axios.get('/article/list')
+      // console.log('res', res)
       let { data } = res
       return data
     } catch (e) {
-      throw new Error(e)
+      throw new Error('报错了', e)
     }
   },
 

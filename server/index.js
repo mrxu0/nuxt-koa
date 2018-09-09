@@ -18,11 +18,13 @@ class Server {
     this.useMiddlewares(this.app)(MIDDLEWARE);
   }
   useMiddlewares(app) {
+    // map：数组的每个成员依次执行某个函数。
+    // compose：将多个函数合并成一个函数，从右到左执行。
     return R.map(R.compose(
-      R.map(i => i(app)),
-      require,
-      i => `${r('./middlewares')}/${i}`)
-    )
+      R.map(i => i(app)), // 调用中间件的方法，并且将 app 作为参数传入
+      require, // 将中间件引入
+      i => `${r('./middlewares')}/${i}` // 获取到中间件目录
+    ))
   }
   async start() {
     // Instantiate nuxt.js

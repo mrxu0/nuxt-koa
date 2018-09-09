@@ -1,7 +1,7 @@
 import { controller, get, post, required, log } from '../../decorator/controller'
-import mongoose from 'mongoose'
+import AdminService from './adminService'
 
-const User = mongoose.model('Users')
+const adminService = new AdminService()
 
 @controller('admin')
 export class Admin {
@@ -10,14 +10,8 @@ export class Admin {
     @required({ body: ['email', 'password'] })
     async login(ctx, next) {
         const { email, password } = ctx.request.body
-        try {
-            var user = await User.findOne({ email: email }).exec()
-            var match = null
-            if (user) match = await user.comparePassword(password, user.password)
-        } catch (e) {
-            throw new Error(e)
-        }
-        if (match) {
+        const user = await adminService.login(email, password)
+        if (user) {
             ctx.session.user = {
                 _id: user._id,
                 role: user.role,

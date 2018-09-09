@@ -10,7 +10,11 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
+      { rel: 'stylesheet', href: '/simplemde/simplemde.min.css' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      { src: '/simplemde/simplemde.min.js' }
     ]
   },
   /* router: {

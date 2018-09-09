@@ -5,8 +5,6 @@ import glob from 'glob'
 import { resolve } from 'path'
 import _ from 'lodash'
 
- const models = resolve(__dirname, '../database/schema')
-
  glob.sync(resolve(__dirname, '../controllers/*/*Schema.js')).forEach(file => {
      require(file)
  })

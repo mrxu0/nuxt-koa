@@ -15,6 +15,5 @@ export const addSession = app => {
     signed: true,
     rolling: false,
   }
-
   app.use(session(CONFIG, app))
 }

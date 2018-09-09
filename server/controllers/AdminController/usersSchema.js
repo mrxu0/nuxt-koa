@@ -39,12 +39,6 @@ UserSchema.virtual('isLocked').get(function () {
     return !!(this.lockUntil && this.lockUntil > Date.now())
 })
 
-/* UserSchema.virtual('token').get(function () {
-    var salt = bcrypt.genSaltSync(10)
-    var token = bcrypt.hashSync(String(this._id), salt)
-    return token
-}) */
-
 UserSchema.pre('save', function (next) {
     if (this.isNew) {
         this.meta.createdAt = this.meta.updatedAt = Date.now()
@@ -77,7 +71,7 @@ UserSchema.pre('save', function(next) {
       })
     },
   
-    incLoginAttempts: function (user) {
+    /* incLoginAttempts: function (user) {
       var that = this
   
       return new Promise((resolve, reject) => {
@@ -110,7 +104,6 @@ UserSchema.pre('save', function(next) {
           else reject(err)
         })
       })
-    }
+    } */
   }
-
 mongoose.model('Users', UserSchema)

@@ -18,16 +18,6 @@
 
 <script>
   export default {
-    head () {
-      return {
-        script: [
-          { src: '/simplemde/simplemde.min.js' }
-        ],
-        link: [
-          { rel: 'stylesheet', href: '/simplemde/simplemde.min.css' }
-        ]
-      }
-    },
     data () {
       return {
         title: null
@@ -42,7 +32,7 @@
         const res = await this.$store.dispatch("addOrEditArticle", {
           title: this.title,
           content: this.simplemde.value(),
-          id: this.$route.params.id
+          _id: this.$route.params.id
         })
         this.$message.info(res.msg)
         if (res.success) this.$router.go(-1)
@@ -52,7 +42,7 @@
       this.simplemde = new SimpleMDE({ 
         element: document.getElementById("simplemde")
       })
-      const res = await this.$store.dispatch('getArticle', {id: this.$route.params.id})
+      const res = await this.$store.dispatch('getArticle', {_id: this.$route.params.id})
       if (!res.success) {
         this.$message.error(res.msg)
       }
