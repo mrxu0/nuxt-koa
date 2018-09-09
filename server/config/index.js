@@ -1,3 +1,3 @@
 export default {
-    db: 'mongodb://localhost:27017/demo'
+    db: 'mongodb://用户名:密码@127.0.0.1:27018/demo'
 }

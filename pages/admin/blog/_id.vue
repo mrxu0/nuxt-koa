@@ -46,8 +46,8 @@
       if (!res.success) {
         this.$message.error(res.msg)
       }
-      this.title = res.data[0].title
-      this.simplemde.value(res.data[0].content)
+      this.title = res.data.title
+      this.simplemde.value(res.data.content)
     }
   }
 </script>

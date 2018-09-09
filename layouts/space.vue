@@ -5,13 +5,13 @@
     </el-header>
     <el-container>
       <el-aside>
-        左边
+        
       </el-aside>
       <el-main>
         <nuxt/>
       </el-main>
       <el-aside>
-        右边
+        
       </el-aside>
     </el-container>
   </el-container>

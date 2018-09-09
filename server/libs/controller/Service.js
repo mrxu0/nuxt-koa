@@ -4,7 +4,7 @@ export default class Service {
     }
     async getId ({ _id}) {
         try {
-            return await this.schema.find({_id: _id})
+            return await this.schema.findOne({_id: _id})
         } catch (err) {
             throw new Error('报错了：', err)
         }

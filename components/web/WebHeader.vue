@@ -1,7 +1,7 @@
 <template>
   <el-row type="flex" justify="center" align="middle">
     <el-col :span="1">
-      <img class="headUlr" src="img/mrxu.png" alt="干得漂亮">  
+      <img class="headUlr" src="~static/img/mrxu.png" alt="干得漂亮">  
     </el-col>
     <!-- <el-col :span="1">MrXu</el-col> -->
     <el-col :span="5">
