@@ -11,6 +11,8 @@ module.exports = {
     ],
     link: [
       { rel: 'stylesheet', href: '/simplemde/simplemde.min.css' },
+      { rel: 'stylesheet', href: '/css/github-markdown.css' },
+      { rel: 'stylesheet', href: '/css/font-awesome.min.css' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
@@ -22,7 +24,7 @@ module.exports = {
   }, */
   plugins: [
     { src: '~plugins/ElementUI', ssr: true },
-    { src: '~plugins/Filter', ssr: true },
+    { src: '~plugins/Filter', ssr: true }
   ],
   /*
   ** Global CSS
@@ -36,7 +38,7 @@ module.exports = {
    ** Build configuration
    */
   build: {
-    vendor:['element-ui'],
+    vendor: ['element-ui'],
     loaders: [
       {
         test: /\.styl(us)?$/,
@@ -47,7 +49,7 @@ module.exports = {
         ]
       }
     ]
-    
+
     /*
      ** Run ESLINT on save
      */

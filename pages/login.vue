@@ -23,23 +23,23 @@ export default {
         email: 'mrxu@qq.com',
         password: 'admin'
       }
-    };
+    }
   },
   methods: {
     async login() {
       if (!this.user.email || !this.user.password) {
-         this.$message.error('请输入用户名和密码');
-        return 
+        this.$message.error('请输入用户名和密码')
+        return
       }
-      const res = await this.$store.dispatch("login", this.user)
+      const res = await this.$store.dispatch('login', this.user)
       if (res.success) {
-        this.$router.push("/admin")
+        this.$router.push('/admin')
       } else {
         this.$message.error(res.msg)
       }
     }
   }
-};
+}
 </script>
 
 <style lang='stylus'>
@@ -55,4 +55,3 @@ export default {
     margin-top 20px
 
 </style>
-

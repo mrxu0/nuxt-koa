@@ -17,34 +17,42 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        title: null
-      }
-    },
-    methods: {
-      async addArticle () {
-        if ( !(this.title && this.simplemde.value() ) ) {
-          this.$message.error('请填写标题和内容!')
-          return 
-        }
-        let data = {
-          title: this.title,
-          content: this.simplemde.value()
-        }
-        const res = await this.$store.dispatch("addOrEditArticle", data)
-        this.$message.info(res.msg)
-        if (res.success) this.$router.go(-1)
-      }
-    },
-    mounted () {
-      this.simplemde = new SimpleMDE({ 
-        element: document.getElementById("simplemde"),
-      })
-      this.simplemde.value("# 开始新的创作吧!")
+import { Loading } from 'element-ui'
+export default {
+  data() {
+    return {
+      title: null
     }
+  },
+  methods: {
+    async addArticle() {
+      if (!(this.title && this.simplemde.value())) {
+        this.$message.error('请填写标题和内容!')
+        return
+      }
+      let mk = this.simplemde.value()
+      let desc = this.simplemde.markdown(mk).replace(/<[^>]*>/g, '').slice(0, 149)
+      let data = {
+        title: this.title,
+        content: mk,
+        transContent: this.simplemde.markdown(mk),
+        desc: desc
+      }
+      let loadingInstance = Loading.service()
+      const res = await this.$store.dispatch('addOrEditArticle', data)
+      loadingInstance.close()
+      this.$message.info(res.msg)
+      if (res.success) this.$router.go(-1)
+    }
+  },
+  mounted() {
+    this.simplemde = new SimpleMDE({
+      element: document.getElementById('simplemde'),
+      autoDownloadFontAwesome: false
+    })
+    this.simplemde.value('# 开始新的创作吧!')
   }
+}
 </script>
 
 <style lang="stylus">

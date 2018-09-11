@@ -1,7 +1,7 @@
 {
   "name": "nuxt-koa",
   "version": "1.1.0",
-  "description": "Nuxt.js project",
+  "description": "由nuxt和koa组成的项目",
   "author": "MrXu",
   "private": true,
   "scripts": {
@@ -16,6 +16,7 @@
     "bcrypt": "^3.0.0",
     "cross-env": "^5.0.1",
     "element-ui": "^2.4.6",
+    "font-awesome": "^4.7.0",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
@@ -23,9 +24,7 @@
     "mongodb": "^3.1.4",
     "mongoose": "^5.2.9",
     "nuxt": "latest",
-    "simplemde": "^1.11.2",
-    "source-map-support": "^0.4.15",
-    "vue-simplemde": "^0.4.8"
+    "source-map-support": "^0.4.15"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",

@@ -18,29 +18,34 @@
 
 <script>
   export default {
-    data () {
+    data() {
       return {
         title: null
       }
     },
     methods: {
-      async editArticle () {
-        if ( !(this.title && this.simplemde.value() ) ) {
+      async editArticle() {
+        if (!(this.title && this.simplemde.value())) {
           this.$message.error('请填写标题和内容!')
-          return 
+          return
         }
-        const res = await this.$store.dispatch("addOrEditArticle", {
+        let mk = this.simplemde.value()
+        let desc = this.simplemde.markdown(mk).replace(/<[^>]*>/g, '').slice(0, 149)
+        let data = {
           title: this.title,
-          content: this.simplemde.value(),
+          content: mk,
+          transContent: this.simplemde.markdown(mk),
+          desc: desc,
           _id: this.$route.params.id
-        })
+        }
+        const res = await this.$store.dispatch('addOrEditArticle', data)
         this.$message.info(res.msg)
         if (res.success) this.$router.go(-1)
       }
     },
-    async mounted () {
-      this.simplemde = new SimpleMDE({ 
-        element: document.getElementById("simplemde")
+    async mounted() {
+      this.simplemde = new SimpleMDE({
+        element: document.getElementById('simplemde')
       })
       const res = await this.$store.dispatch('getArticle', {_id: this.$route.params.id})
       if (!res.success) {

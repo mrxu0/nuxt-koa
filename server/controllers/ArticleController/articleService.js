@@ -14,6 +14,6 @@ export default class ArticleService extends Service {
         } catch (err) {
             throw new Error('报错了：', err)
         }
-    } 
+    }
 }
  
