@@ -14,8 +14,8 @@ const MIDDLEWARE = ['general', 'database', 'router']
 
 class Server {
   constructor() {
-    this.app = new Koa();
-    this.useMiddlewares(this.app)(MIDDLEWARE);
+    this.app = new Koa()
+    this.useMiddlewares(this.app)(MIDDLEWARE)
   }
   useMiddlewares(app) {
     // map：数组的每个成员依次执行某个函数。

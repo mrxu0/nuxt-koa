@@ -45,7 +45,8 @@
     },
     async mounted() {
       this.simplemde = new SimpleMDE({
-        element: document.getElementById('simplemde')
+        element: document.getElementById('simplemde'),
+        autoDownloadFontAwesome: false
       })
       const res = await this.$store.dispatch('getArticle', {_id: this.$route.params.id})
       if (!res.success) {

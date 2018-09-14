@@ -79,12 +79,17 @@ module.exports = {
   head: {
     title: 'starter',
     meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: 'Nuxt.js project' }],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'stylesheet', href: '/simplemde/simplemde.min.css' }, { rel: 'stylesheet', href: '/css/github-markdown.css' }, { rel: 'stylesheet', href: '/css/font-awesome.min.css' }, { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [{ src: '/simplemde/simplemde.min.js' }]
   },
+  /* router: {
+    middleware: 'auth'
+  }, */
+  plugins: [{ src: '~plugins/ElementUI', ssr: true }, { src: '~plugins/Filter', ssr: true }],
   /*
   ** Global CSS
   */
-  css: ['~static/css/main.css'],
+  css: ['~static/css/main.css', 'element-ui/lib/theme-chalk/index.css'],
   /*
   ** Customize the progress-bar color
   */
@@ -93,19 +98,25 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    vendor: ['element-ui'],
+    loaders: [{
+      test: /\.styl(us)?$/,
+      use: ['vue-style-loader', 'css-loader', 'stylus-loader']
+    }]
+
     /*
      ** Run ESLINT on save
      */
-    extend: function extend(config, ctx) {
+    /* extend (config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /(node_modules)/
-        });
+        })
       }
-    }
+    } */
   }
 };
 
@@ -165,8 +176,8 @@ module.exports = require("regenerator-runtime");
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_c_work_MrXu_Node_nuxt_koa_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_c_work_MrXu_Node_nuxt_koa_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_c_work_MrXu_Node_nuxt_koa_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_xuyuechao_Work_other_git_project_nuxt_koa_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_xuyuechao_Work_other_git_project_nuxt_koa_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_xuyuechao_Work_other_git_project_nuxt_koa_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(4);
@@ -193,11 +204,11 @@ var config = __webpack_require__(0);
 config.dev = !(process.env === 'production');
 
 var r = function r(path) {
-  return __WEBPACK_IMPORTED_MODULE_4_path___default()(__dirname, path);
+  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_path__["resolve"])(__dirname, path);
 };
 var host = process.env.HOST || '127.0.0.1';
-var port = process.env.PORT || 3000;
-var MIDDLEWARE = ['router'];
+var port = process.env.PORT || 8088;
+var MIDDLEWARE = ['general', 'database', 'router'];
 
 var Server = function () {
   function Server() {
@@ -210,18 +221,23 @@ var Server = function () {
   _createClass(Server, [{
     key: 'useMiddlewares',
     value: function useMiddlewares(app) {
+      // map：数组的每个成员依次执行某个函数。
+      // compose：将多个函数合并成一个函数，从右到左执行。
       return __WEBPACK_IMPORTED_MODULE_3_ramda___default.a.map(__WEBPACK_IMPORTED_MODULE_3_ramda___default.a.compose(__WEBPACK_IMPORTED_MODULE_3_ramda___default.a.map(function (i) {
-        return app;
-      }), !(function webpackMissingModule() { var e = new Error("Cannot find module \".\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()), function (i) {
+        return i(app);
+      }), // 调用中间件的方法，并且将 app 作为参数传入
+      !(function webpackMissingModule() { var e = new Error("Cannot find module \".\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()), // 将中间件引入
+      function (i) {
         return r('./middlewares') + '/' + i;
-      }));
+      } // 获取到中间件目录
+      ));
     }
   }, {
     key: 'start',
     value: function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_c_work_MrXu_Node_nuxt_koa_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+      var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_xuyuechao_Work_other_git_project_nuxt_koa_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator___default.a.mark(function _callee() {
         var nuxt, builder;
-        return __WEBPACK_IMPORTED_MODULE_0_c_work_MrXu_Node_nuxt_koa_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+        return __WEBPACK_IMPORTED_MODULE_0__Users_xuyuechao_Work_other_git_project_nuxt_koa_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -245,6 +261,8 @@ var Server = function () {
                   ctx.status = 200;
                   ctx.respond = false; // Mark request as handled for Koa
                   ctx.req.ctx = ctx; // This might be useful later on, e.g. in nuxtServerInit or with nuxt-stash
+
+                  ctx.req.session = ctx.session;
                   nuxt.render(ctx.req, ctx.res);
                 });
 
